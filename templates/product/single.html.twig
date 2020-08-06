@@ -1,0 +1,81 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}
+{{ project_name }} | {{ page_title }} | {{ product.name }}
+{% endblock %}
+
+{% block content %}
+<br/><br/><br/><br/>
+<div class="container single_product">
+
+    <div class="row">
+
+      <div class="col-lg-4">
+
+        <img class="card-img-top"  src="{{ absolute_url(asset('images/product/' ~ product.image)) }}" alt="">
+
+      </div>
+      <!-- /.col-lg-4 -->
+
+      <div class="col-lg-8">
+
+        <h4 class="card-title">
+            <a href="#"> <h2> {{ product.name }} </h2> </a>
+        </h4>
+
+        <p class="card-text">{{ product.description }}</p>
+
+      </div>
+      <!-- /.col-lg-8 -->
+
+    </div>
+    <!-- /.row -->
+
+    <div class="row">
+
+        <div class="col-lg-4">
+
+        <div class="card">
+          <div class="card-header">
+          <h6>PROVIDER INFORMATION</h6>
+          </div>
+          <div class="card-body">
+          <a href="{{ url('provider') }}/{{ product.getProvider().id }}"><h4> {{ product.getProvider().owner }} </h4></a>
+          <p>  {{ product.getProvider().description }} </p>
+          <h5> {{ product.getProvider().name }} </h5>
+          </div>
+        </div>
+
+        </div>
+        <!-- /.col-lg-4 -->
+
+        <div class="col-lg-8">
+
+          {% for software in softwares %}
+
+          <div class="card">
+            <div class="card-body">
+              <p class="version"><b>Version: </b>{{ software.version }}
+              <span class="platform"><b>Platform: </b>{{ software.getPlatform().name }}</span></p>
+            </div>
+            <div class="card-footer">
+              <!-- <small class="text-muted">★ ★ ★ ★ ☆</small> -->
+              <h5 class="price"><b>Price: </b>$ {{ software.price }}
+              <button class="btn btn-primary btn-cart">Add To Cart </button> </h5>
+            </div>
+          </div>
+
+          {% endfor %}
+
+        </div>
+        <!-- /.col-lg-8 -->
+
+    </div>
+    <!-- /.row -->
+
+  </div>
+
+  <br/> <br/>
+
+    {% block page_contents %}{% endblock %}
+{% endblock %}

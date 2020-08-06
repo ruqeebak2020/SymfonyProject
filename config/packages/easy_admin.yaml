@@ -1,0 +1,8 @@
+easy_admin:
+    site_name: 'Admin <em style="font-size: 80%;">Dashboard</em>'
+    entities:
+        # List the entity class name you want to manage
+        - App\Entity\Platform
+        - App\Entity\Provider
+        - App\Entity\Product
+        - App\Entity\Software
