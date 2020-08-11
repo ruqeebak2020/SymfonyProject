@@ -1,0 +1,58 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}
+{{ project_name }} | {{ page_title }} | {{ product.name }}
+{% endblock %}
+
+{% block content %}
+<br/><br/><br/><br/>
+
+<input type="hidden" name="app_currency_key" id="app_currency_key" value="{{ api_key }}">
+
+<div class="container single_product">
+
+    <div class="row">
+
+      <div class="col-lg-4">
+
+        <img class="card-img-top"  src="{{ absolute_url(asset('images/product/' ~ product.image)) }}" alt="">
+        <div class="card">
+          <div class="card-header">
+          <h6>PROVIDER INFORMATION</h6>
+          </div>
+          <div class="card-body">
+          <a href="{{ url('provider') }}/{{ product.getProvider().id }}"><h4> {{ product.getProvider().name }} </h4></a>
+          <p>  {{ product.getProvider().description }} </p>
+          </div>
+        </div>
+
+      </div>
+      <!-- /.col-lg-4 -->
+
+      <div class="col-lg-8">
+
+        <h4 class="card-title">
+            <a href="#"> <h2> {{ product.name }} </h2> </a>
+        </h4>
+
+        <p class="card-text">{{ product.description }}</p>
+
+        <p class="card-text"><b>Platform: </b>{{ product.getPlatform().name }}</p>
+
+        <h5>Price: <span id="cur_price_{{ product.id }}" class="cur_price" >$ {{ product.price }} USD</span></h5>
+
+        <button class="btn btn-primary btn-cart">Add To Cart </button>
+
+      </div>
+      <!-- /.col-lg-8 -->
+
+    </div>
+    <!-- /.row -->
+
+
+  </div>
+
+  <br/> <br/>
+
+    {% block page_contents %}{% endblock %}
+{% endblock %}

@@ -8,19 +8,8 @@
 
       <div class="col-lg-3">
 
-        <h1 class="my-4">{{ platforms_title }}</h1>
-        <div class="list-group">
-          {% for platform in platforms %}
-            <a  class="list-group-item">{{ platform.name }}</a>
-          {% endfor %}
-        </div>
-
-        <h1 class="my-4">{{ product_title }}</h1>
-        <div class="list-group">
-        {% for product in products %}
-          <a href="{{ url('product') }}/{{ product.id }}" class="list-group-item">{{ product.name }}</a>
-        {% endfor %}
-        </div>
+      {{ include('inc/platform_sidebar.html.twig') }}
+      {{ include('inc/product_sidebar.html.twig') }}
 
       </div>
       <!-- /.col-lg-3 -->
@@ -31,16 +20,7 @@
 
         {% for provider in providers %}
           <div class="col-lg-6 col-md-6 mb-6">
-            <div class="card h-100">
-              <div class="card-body">
-                <a href="{{ url('provider') }}/{{ provider.id }}"><h4 class="card-title"> {{ provider.owner }} </h4></a>
-                <p class="card-text"> {{ provider.description }} </p>
-              </div>
-              <div class="card-footer">
-                <p class="card-owner"> <b> {{ provider.name }} </b> </p>
-              <!--  <a href="#{# provider.CTA_link #}" class="btn btn-primary">Find Out More!{# provider.CTA_text #}</a> -->
-              </div>
-            </div>
+            {{ include('provider/loop.html.twig') }}
           </div>
         {% endfor %}
 

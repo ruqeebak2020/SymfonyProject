@@ -1,0 +1,15 @@
+<div class="card h-100">
+  <div class="card-body">
+    <a href="{{ url('provider') }}/{{ provider.id }}"><h4 class="card-title"> {{ provider.name }} </h4></a>
+    <p class="card-text"> {{ provider.description }} </p>
+  </div>
+  <div class="card-footer">
+
+    <p class="card-owner"> <b>Platforms: </b>
+    {% for platform in provider.getPlatforms() %}
+      {{ platform.name }}, 
+    {% endfor %}
+    </p>
+  <!--  <a href="#{# provider.CTA_link #}" class="btn btn-primary">Find Out More!{# provider.CTA_text #}</a> -->
+  </div>
+</div>

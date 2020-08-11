@@ -3,7 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Provider;
-use App\Entity\Product;
+use App\Entity\Bundle;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -18,7 +18,7 @@ class HomeController extends AbstractController
     $repository = $this->getDoctrine()->getRepository(Provider::class);
     $providers = $repository->findAll();
 
-    $repository = $this->getDoctrine()->getRepository(Product::class);
+    $repository = $this->getDoctrine()->getRepository(Bundle::class);
     $products = $repository->findAll();
 
     return $this->render('home/index.html.twig', [

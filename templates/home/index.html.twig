@@ -4,62 +4,34 @@
 
 <div class="container">
 
-  <header class="jumbotron my-4">
+  <header class="jumbotron my-4 home_banner" style="background-image: url( {{ absolute_url(asset('images/banner.jpg')) }} );">
     <h1 class="display-3">{{ banner_title }}</h1>
     <p class="lead">{{ banner_description }}</p>
     <a href="{{ banner_CTA_link }}" class="btn btn-primary btn-lg">{{ banner_CTA_text }}</a>
   </header>
 
   <h2> {{ provider_list_title }} </h2>
-
   <div class="row text-center provider_list">
 
   {% for provider in providers %}
     <div class="col-lg-3 col-md-6 mb-4">
-      <div class="card h-100">
-      <!--  <img class="card-img-top"  src="{{ absolute_url(asset('images/provider_sample_image.png')) }}" alt=""> -->
-        <div class="card-body">
-          <a href="{{ url('provider') }}/{{ provider.id }}"><h4 class="card-title"> {{ provider.owner }} </h4></a>
-          <p class="card-text"> {{ provider.description }} </p>
-        </div>
-        <div class="card-footer">
-          <p class="card-owner"> <b> {{ provider.name }} </b> </p>
-        <!--  <a href="#{# provider.CTA_link #}" class="btn btn-primary">Find Out More!{# provider.CTA_text #}</a> -->
-        </div>
-      </div>
+      {{ include('provider/loop.html.twig') }}
     </div>
   {% endfor %}
 
+
   </div>
 
+  <input type="hidden" name="app_currency_key" id="app_currency_key" value="{{ api_key }}">
 
   <h2> {{ product_list_title }} </h2>
-
-    <div class="row product_list">
-
-    {% for product in products %}
-      <div class="col-lg-3 col-md-6 mb-3">
-        <div class="card h-100">
-        <a href="{{ url('product') }}/{{ product.id }}" class="pro_img"><img class="card-img-top"  src="{{ absolute_url(asset('images/product/' ~ product.image)) }}" alt=""></a>
-        <div class="card-body">
-          <h4 class="card-title">
-            <a href="{{ url('product') }}/{{ product.id }}">{{ product.name }}</a>
-          </h4>
-          {% set price = product.getSoftware()|last.price %}
-          <h5>$ {{price}}</h5>
-          <!-- <h5>$ 24.5 {# product.price #}</h5> -->
-          <p class="card-text">{{ product.description }}</p>
-        </div>
-        <div class="card-footer">
-          <!-- <small class="text-muted">★ ★ ★ ★ ☆</small> -->
-          <a href="{{ url('product') }}/{{ product.id }}"><button class="btn btn-primary">View More </button></a>
-          <button class="btn btn-primary btn-cart">Add To Cart </button>
-        </div>
-        </div>
-      </div>
-    {% endfor %}
-
+  <div class="row product_list">
+  {% for product in products %}
+    <div class="col-lg-3 col-md-6 mb-3">
+      {{ include('bundle/loop.html.twig') }}
     </div>
+  {% endfor %}
+  </div>
 
 </div>
 

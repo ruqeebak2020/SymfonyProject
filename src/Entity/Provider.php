@@ -30,33 +30,19 @@ class Provider
     private $description;
 
     /**
-     * @ORM\Column(type="string", length=150)
+     * @ORM\ManyToMany(targetEntity=Platform::class, inversedBy="providers")
      */
-    private $owner;
+    private $platforms;
 
     /**
-     * @ORM\Column(type="string", length=150)
+     * @ORM\OneToMany(targetEntity=Bundle::class, mappedBy="provider")
      */
-    private $email;
-
-    /**
-     * @ORM\Column(type="string", length=150)
-     */
-    private $phone;
-
-    /**
-     * @ORM\OneToMany(targetEntity=Product::class, mappedBy="Provider")
-     */
-    private $products;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $address;
+    private $bundles;
 
     public function __construct()
     {
-        $this->products = new ArrayCollection();
+        $this->platforms = new ArrayCollection();
+        $this->bundles = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -88,87 +74,65 @@ class Provider
         return $this;
     }
 
-    public function getOwner(): ?string
-    {
-        return $this->owner;
-    }
-
-    public function setOwner(string $owner): self
-    {
-        $this->owner = $owner;
-
-        return $this;
-    }
-
-    public function getEmail(): ?string
-    {
-        return $this->email;
-    }
-
-    public function setEmail(string $email): self
-    {
-        $this->email = $email;
-
-        return $this;
-    }
-
-    public function getPhone(): ?string
-    {
-        return $this->phone;
-    }
-
-    public function setPhone(string $phone): self
-    {
-        $this->phone = $phone;
-
-        return $this;
-    }
-
     /**
-     * @return Collection|Product[]
+     * @return Collection|Platform[]
      */
-    public function getProducts(): Collection
+    public function getPlatforms(): Collection
     {
-        return $this->products;
+        return $this->platforms;
     }
 
-    public function addProduct(Product $product): self
+    public function addPlatform(Platform $platform): self
     {
-        if (!$this->products->contains($product)) {
-            $this->products[] = $product;
-            $product->setProvider($this);
+        if (!$this->platforms->contains($platform)) {
+            $this->platforms[] = $platform;
         }
 
         return $this;
     }
 
-    public function removeProduct(Product $product): self
+    public function removePlatform(Platform $platform): self
     {
-        if ($this->products->contains($product)) {
-            $this->products->removeElement($product);
+        if ($this->platforms->contains($platform)) {
+            $this->platforms->removeElement($platform);
+        }
+
+        return $this;
+    }
+
+    public function __tostring() {
+       return $this->name;
+     }
+
+    /**
+     * @return Collection|Bundle[]
+     */
+    public function getBundles(): Collection
+    {
+        return $this->bundles;
+    }
+
+    public function addBundle(Bundle $bundle): self
+    {
+        if (!$this->bundles->contains($bundle)) {
+            $this->bundles[] = $bundle;
+            $bundle->setProvider($this);
+        }
+
+        return $this;
+    }
+
+    public function removeBundle(Bundle $bundle): self
+    {
+        if ($this->bundles->contains($bundle)) {
+            $this->bundles->removeElement($bundle);
             // set the owning side to null (unless already changed)
-            if ($product->getProvider() === $this) {
-                $product->setProvider(null);
+            if ($bundle->getProvider() === $this) {
+                $bundle->setProvider(null);
             }
         }
 
         return $this;
     }
 
-    public function __toString()
-    {
-        return $this->name;
-    }
-
-    public function getAddress(): ?string
-    {
-        return $this->address;
-    }
-
-    public function setAddress(?string $address): self
-    {
-        $this->address = $address;
-
-        return $this;
-    }
 }

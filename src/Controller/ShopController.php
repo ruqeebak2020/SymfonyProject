@@ -4,7 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Platform;
 use App\Entity\Provider;
-use App\Entity\Product;
+use App\Entity\Bundle;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -22,7 +22,7 @@ class ShopController extends AbstractController
       $repository = $this->getDoctrine()->getRepository(Platform::class);
       $platform = $repository->findAll();
 
-      $repository = $this->getDoctrine()->getRepository(Product::class);
+      $repository = $this->getDoctrine()->getRepository(Bundle::class);
       $products = $repository->findAll();
 
       return $this->render('shop/index.html.twig', [

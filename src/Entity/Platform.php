@@ -25,13 +25,19 @@ class Platform
     private $name;
 
     /**
-     * @ORM\OneToMany(targetEntity=Software::class, mappedBy="Platform")
+     * @ORM\ManyToMany(targetEntity=Provider::class, mappedBy="platforms")
      */
-    private $software;
+    private $providers;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Bundle::class, mappedBy="platform")
+     */
+    private $bundles;
 
     public function __construct()
     {
-        $this->software = new ArrayCollection();
+        $this->providers = new ArrayCollection();
+        $this->bundles = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -51,39 +57,67 @@ class Platform
         return $this;
     }
 
-    public function __toString()
-    {
-        return $this->name;
-    }
-
     /**
-     * @return Collection|Software[]
+     * @return Collection|Provider[]
      */
-    public function getSoftware(): Collection
+    public function getProviders(): Collection
     {
-        return $this->software;
+        return $this->providers;
     }
 
-    public function addSoftware(Software $software): self
+    public function addProvider(Provider $provider): self
     {
-        if (!$this->software->contains($software)) {
-            $this->software[] = $software;
-            $software->setPlatform($this);
+        if (!$this->providers->contains($provider)) {
+            $this->providers[] = $provider;
+            $provider->addPlatform($this);
         }
 
         return $this;
     }
 
-    public function removeSoftware(Software $software): self
+    public function removeProvider(Provider $provider): self
     {
-        if ($this->software->contains($software)) {
-            $this->software->removeElement($software);
+        if ($this->providers->contains($provider)) {
+            $this->providers->removeElement($provider);
+            $provider->removePlatform($this);
+        }
+
+        return $this;
+    }
+
+    public function __tostring() {
+       return $this->name;
+     }
+
+    /**
+     * @return Collection|Bundle[]
+     */
+    public function getBundles(): Collection
+    {
+        return $this->bundles;
+    }
+
+    public function addBundle(Bundle $bundle): self
+    {
+        if (!$this->bundles->contains($bundle)) {
+            $this->bundles[] = $bundle;
+            $bundle->setPlatform($this);
+        }
+
+        return $this;
+    }
+
+    public function removeBundle(Bundle $bundle): self
+    {
+        if ($this->bundles->contains($bundle)) {
+            $this->bundles->removeElement($bundle);
             // set the owning side to null (unless already changed)
-            if ($software->getPlatform() === $this) {
-                $software->setPlatform(null);
+            if ($bundle->getPlatform() === $this) {
+                $bundle->setPlatform(null);
             }
         }
 
         return $this;
     }
+
 }

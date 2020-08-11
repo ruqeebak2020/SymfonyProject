@@ -8,19 +8,8 @@
 
       <div class="col-lg-3">
 
-        <h1 class="my-4">{{ platforms_title }}</h1>
-        <div class="list-group">
-          {% for platform in platforms %}
-            <a  class="list-group-item">{{ platform.name }}</a>
-          {% endfor %}
-        </div>
-
-        <h1 class="my-4">{{ providers_title }}</h1>
-        <div class="list-group">
-        {% for provider in providers %}
-          <a href="{{ url('provider') }}/{{ provider.id }}" class="list-group-item">{{ provider.owner }}</a>
-        {% endfor %}
-        </div>
+          {{ include('inc/platform_sidebar.html.twig') }}
+          {{ include('inc/provider_sidebar.html.twig') }}
 
       </div>
       <!-- /.col-lg-3 -->
@@ -61,27 +50,12 @@
 
         <div class="row product_list">
 
-          {% for product in products %}
-            <div class="col-lg-4 col-md-6 mb-4">
-              <div class="card h-100">
-                <a href="{{ url('product') }}/{{ product.id }}" class="pro_img"><img class="card-img-top"  src="{{ absolute_url(asset('images/product/' ~ product.image)) }}" alt=""></a>
-                <div class="card-body">
-                  <h4 class="card-title">
-                    <a href="{{ url('product') }}/{{ product.id }}">{{ product.name }}</a>
-                  </h4>
-                  {% set price = product.getSoftware()|last.price %}
-                  <h5>$ {{price}}</h5>
-                  <!-- <h5>$ 24.5 {# product.price #}</h5> -->
-                  <p class="card-text">{{ product.description }}</p>
-                </div>
-                <div class="card-footer">
-                  <!-- <small class="text-muted">★ ★ ★ ★ ☆</small> -->
-                  <a href="{{ url('product') }}/{{ product.id }}"><button class="btn btn-primary">View More </button></a>
-                  <button class="btn btn-primary btn-cart">Add To Cart </button>
-                </div>
-              </div>
-            </div>
-          {% endfor %}
+        {% for product in products %}
+          <div class="col-lg-4 col-md-6 mb-4">
+            {{ include('bundle/loop.html.twig') }}
+          </div>
+        {% endfor %}
+
 
         </div>
         <!-- /.row -->

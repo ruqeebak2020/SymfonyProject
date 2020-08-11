@@ -8,10 +8,10 @@ use App\Entity\Bundle;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 
-class ProviderController extends AbstractController
+class BundleController extends AbstractController
 {
     /**
-     * @Route("/provider", name="provider")
+     * @Route("/bundle", name="bundle")
      */
     public function index()
     {
@@ -24,39 +24,34 @@ class ProviderController extends AbstractController
       $repository = $this->getDoctrine()->getRepository(Bundle::class);
       $products = $repository->findAll();
 
-      return $this->render('provider/index.html.twig', [
+      return $this->render('shop/index.html.twig', [
           'project_name' => 'Symfony Project',
-          'page_title' => 'Providers',
+          'page_title' => 'Bundles',
+          'product_list_title' => 'Top Bundles',
           'platforms_title' => 'Platforms',
           'platforms' => $platform,
-          'product_title' => 'Bundles',
-          'products' => $products,
+          'providers_title' => 'Providers',
           'providers' => $providers,
+          'products' => $products,
           'copy_right_text' => 'Copyright © Symfony Project 2020'
       ]);
     }
 
     /**
-     * @Route("/provider/{id}", name="single_provider")
+     * @Route("/bundle/{id}", name="single_bundle")
      */
 
-     public function single_provider( $id )
+     public function single_bundle( $id )
      {
 
-       $provider = $this->getDoctrine()
-        ->getRepository(Provider::class)
+       $product = $this->getDoctrine()
+        ->getRepository(Bundle::class)
         ->find($id);
 
-        $repository = $this->getDoctrine()->getRepository(Bundle::class);
-          $products = $repository->findBy(
-              ['provider' => $id]
-          );
-
-       return $this->render('provider/single.html.twig', [
+       return $this->render('bundle/single.html.twig', [
            'project_name' => 'Symfony Project',
-           'page_title' => 'Provider',
-           'provider' => $provider,
-           'products' => $products,
+           'page_title' => 'Bundle',
+           'product' => $product,
            'copy_right_text' => 'Copyright © Symfony Project 2020'
        ]);
 
