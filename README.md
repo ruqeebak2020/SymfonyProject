@@ -29,7 +29,7 @@ git clone https://github.com/ruqeebak2020/SymfonyProject.git
     ```
 - if its showing ***5.7*** then no need to change ***serverVersion*** at ***.env*** file.
 - If its different then change the ***serverVersion*** accordingly.
-- At last line you have to add your Fixer API key at ***APP_CURRENCY_KEY***.
+- At last line you have to add Fixer api key at ***APP_CURRENCY_KEY***.
 
 ### Step 4: Project Folder
 - Open Command Prompt and run the composer command as follows
