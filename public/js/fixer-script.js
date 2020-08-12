@@ -1,5 +1,4 @@
 $( document ).ready(function() {
-    console.log( "ready!" );
 
   if(typeof( $.session.get('currency_value') ) != "undefined" && $.session.get('currency_value') !== null) {
       var to = $.session.get('currency_value');
