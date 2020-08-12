@@ -5,7 +5,7 @@ This project is about a online softwares selling web application where a softwar
 ## Steps to Configure this SymfonyProject on your server
 ### Step 1: Software We Required
 - PHP (7.2 or above)
-- MySQL (5.7 or MariaDb 10.1.14)
+- MySQL (5.7 or MariaDb 10.4.11)
 - Symfony (4.4)
 - Git
 - Composer
