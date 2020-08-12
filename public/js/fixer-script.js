@@ -14,7 +14,6 @@ $( document ).ready(function() {
           var symbol = price_arr[0];
           var amount = price_arr[1];
           var from = price_arr[2];
-
           $.ajax({
               url: 'http://data.fixer.io/api/latest?access_key='+access_key,
               dataType: 'jsonp',
