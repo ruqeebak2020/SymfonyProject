@@ -26,15 +26,13 @@ class ShopController extends AbstractController
       $products = $repository->findAll();
 
       return $this->render('shop/index.html.twig', [
-          'project_name' => 'Symfony Project',
           'page_title' => 'Shop',
           'product_list_title' => 'Top Bundle',
           'platforms_title' => 'Platforms',
           'platforms' => $platform,
           'providers_title' => 'Providers',
           'providers' => $providers,
-          'products' => $products,
-          'copy_right_text' => 'Copyright © Symfony Project 2020'
+          'products' => $products
       ]);
       }
 

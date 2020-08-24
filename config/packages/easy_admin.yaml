@@ -1,7 +1,33 @@
 easy_admin:
     site_name: 'Admin <em style="font-size: 80%;">Dashboard</em>'
     entities:
-        # List the entity class name you want to manage
-        - App\Entity\Platform
-        - App\Entity\Provider
-        - App\Entity\Bundle
+        Platform:
+            class: App\Entity\Platform
+            form:
+                fields:
+                    - { property: 'name' }
+        Provider:
+            class: App\Entity\Provider
+            form:
+                fields:
+                    - { property: 'name' }
+                    - { property: 'description' }
+                    - { property: 'platforms', type_options: { required: true } }
+        Bundle:
+            class: App\Entity\Bundle
+            list:
+                fields:
+                    - { property: 'name' }
+                    - { property: 'description' }
+                    - { property: 'price' }
+                    - { property: 'image', type: 'image' , base_path: '/images/product/' }
+                    - { property: 'provider' }
+                    - { property: 'platform' }
+            form:
+                fields:
+                    - { property: 'name' }
+                    - { property: 'description' }
+                    - { property: 'price' }
+                    - { property: 'image' , type: 'file_upload' , type_options: { upload_dir: 'public/images/product/' }}
+                    - { property: 'provider' }
+                    - { property: 'platform' }

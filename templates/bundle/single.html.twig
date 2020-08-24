@@ -21,7 +21,7 @@
           <h6>PROVIDER INFORMATION</h6>
           </div>
           <div class="card-body">
-          <a href="{{ url('provider') }}/{{ product.getProvider().id }}"><h4> {{ product.getProvider().name }} </h4></a>
+          <a href="{{ url('provider',{'id': product.getProvider().id}) }}"><h4> {{ product.getProvider().name }} </h4></a>
           <p>  {{ product.getProvider().description }} </p>
           </div>
         </div>

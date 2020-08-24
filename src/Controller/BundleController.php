@@ -11,7 +11,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class BundleController extends AbstractController
 {
     /**
-     * @Route("/bundle", name="bundle")
+     * @Route("/bundles", name="bundles")
      */
     public function index()
     {
@@ -25,20 +25,18 @@ class BundleController extends AbstractController
       $products = $repository->findAll();
 
       return $this->render('shop/index.html.twig', [
-          'project_name' => 'Symfony Project',
           'page_title' => 'Bundles',
           'product_list_title' => 'Top Bundles',
           'platforms_title' => 'Platforms',
           'platforms' => $platform,
           'providers_title' => 'Providers',
           'providers' => $providers,
-          'products' => $products,
-          'copy_right_text' => 'Copyright © Symfony Project 2020'
+          'products' => $products
       ]);
     }
 
     /**
-     * @Route("/bundle/{id}", name="single_bundle")
+     * @Route("/bundle/{id}", name="bundle")
      */
 
      public function single_bundle( $id )
@@ -48,12 +46,19 @@ class BundleController extends AbstractController
         ->getRepository(Bundle::class)
         ->find($id);
 
-       return $this->render('bundle/single.html.twig', [
-           'project_name' => 'Symfony Project',
-           'page_title' => 'Bundle',
-           'product' => $product,
-           'copy_right_text' => 'Copyright © Symfony Project 2020'
-       ]);
+        if(!$product) {
+        //  throw $this->createNotFoundException('The Bundle does not exist!!!');
+          return $this->render('inc/error.html.twig', [
+              'page_title' => '404 Page Not Found',
+              'message' => 'The Bundle does not exist !!!'
+          ]);
+
+        } else {
+          return $this->render('bundle/single.html.twig', [
+              'page_title' => 'Bundle',
+              'product' => $product
+          ]);
+        }
 
      }
 

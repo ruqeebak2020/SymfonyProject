@@ -11,7 +11,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class ProviderController extends AbstractController
 {
     /**
-     * @Route("/provider", name="provider")
+     * @Route("/providers", name="providers")
      */
     public function index()
     {
@@ -25,19 +25,17 @@ class ProviderController extends AbstractController
       $products = $repository->findAll();
 
       return $this->render('provider/index.html.twig', [
-          'project_name' => 'Symfony Project',
           'page_title' => 'Providers',
           'platforms_title' => 'Platforms',
           'platforms' => $platform,
           'product_title' => 'Bundles',
           'products' => $products,
-          'providers' => $providers,
-          'copy_right_text' => 'Copyright © Symfony Project 2020'
+          'providers' => $providers
       ]);
     }
 
     /**
-     * @Route("/provider/{id}", name="single_provider")
+     * @Route("/provider/{id}", name="provider")
      */
 
      public function single_provider( $id )
@@ -52,13 +50,22 @@ class ProviderController extends AbstractController
               ['provider' => $id]
           );
 
-       return $this->render('provider/single.html.twig', [
-           'project_name' => 'Symfony Project',
-           'page_title' => 'Provider',
-           'provider' => $provider,
-           'products' => $products,
-           'copy_right_text' => 'Copyright © Symfony Project 2020'
-       ]);
+          if(!$provider) {
+
+            return $this->render('inc/error.html.twig', [
+                'page_title' => '404 Page Not Found',
+                'message' => 'The Provider does not exist !!!'
+            ]);
+
+          } else {
+
+             return $this->render('provider/single.html.twig', [
+                 'page_title' => 'Provider',
+                 'provider' => $provider,
+                 'products' => $products
+             ]);
+
+          }
 
      }
 

@@ -22,7 +22,6 @@ class HomeController extends AbstractController
     $products = $repository->findAll();
 
     return $this->render('home/index.html.twig', [
-        'project_name' => 'Symfony Project',
         'page_title' => 'Home',
         'banner_title' => 'A Warm Welcome!',
         'banner_description' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsa, ipsam, eligendi, in quo sunt possimus non incidunt odit vero aliquid similique quaerat nam nobis illo aspernatur vitae fugiat numquam repellat.',
@@ -32,7 +31,6 @@ class HomeController extends AbstractController
         'providers' => $providers,
         'product_list_title' => 'Top Bundle',
         'products' => $products,
-        'copy_right_text' => 'Copyright © Symfony Project 2020'
     ]);
     }
 }

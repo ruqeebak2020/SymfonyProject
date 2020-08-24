@@ -48,3 +48,8 @@ width: auto;
 .single_provider h2 span.provider_name {
   font-size: 20px;
 }
+
+.page404 {
+    padding: 15% 0;
+    text-align: center;
+}

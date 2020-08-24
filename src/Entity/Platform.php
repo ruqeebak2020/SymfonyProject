@@ -65,7 +65,7 @@ class Platform
         return $this->providers;
     }
 
-    public function addProvider(Provider $provider): self
+   public function addProvider(Provider $provider): self
     {
         if (!$this->providers->contains($provider)) {
             $this->providers[] = $provider;
@@ -97,7 +97,7 @@ class Platform
         return $this->bundles;
     }
 
-    public function addBundle(Bundle $bundle): self
+   public function addBundle(Bundle $bundle): self
     {
         if (!$this->bundles->contains($bundle)) {
             $this->bundles[] = $bundle;

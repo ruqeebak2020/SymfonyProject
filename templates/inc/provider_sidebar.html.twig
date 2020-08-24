@@ -1,6 +1,6 @@
 <h1 class="my-4">{{ providers_title }}</h1>
 <div class="list-group">
 {% for provider in providers %}
-  <a href="{{ url('provider') }}/{{ provider.id }}" class="list-group-item">{{ provider.name }}</a>
+  <a href="{{ url('provider',{'id': provider.id}) }}" class="list-group-item">{{ provider.name }}</a>
 {% endfor %}
 </div>

@@ -29,7 +29,9 @@ git clone https://github.com/ruqeebak2020/SymfonyProject.git
     ```
 - if its showing ***5.7*** then no need to change ***serverVersion*** at ***.env*** file.
 - If its different then change the ***serverVersion*** accordingly.
-- At last line you have to add Fixer api key at ***APP_CURRENCY_KEY***.
+- At line number 34 you have to add Fixer API key at ***APP_CURRENCY_KEY***.
+- At line number 35 provide your project name at ***PROJECT_NAME***.
+- At line number 36 provide footer Copyright Text at ***COPY_RIGHT_TEXT***.
 
 ### Step 4: Project Folder
 - Open Command Prompt and run the composer command as follows
@@ -50,10 +52,36 @@ php bin/console doctrine:migrations:migrate
 - easy_admin:
     site_name: 'Admin <em style="font-size: 80%;">Dashboard</em>'
     entities:
-        # List the entity class name you want to manage
-        - App\Entity\Platform
-        - App\Entity\Provider
-        - App\Entity\Bundle
+        Platform:
+            class: App\Entity\Platform
+            form:
+                fields:
+                    - { property: 'name' }
+        Provider:
+            class: App\Entity\Provider
+            form:
+                fields:
+                    - { property: 'name' }
+                    - { property: 'description' }
+                    - { property: 'platforms', type_options: { required: true } }
+        Bundle:
+            class: App\Entity\Bundle
+            list:
+                fields:
+                    - { property: 'name' }
+                    - { property: 'description' }
+                    - { property: 'price' }
+                    - { property: 'image', type: 'image' , base_path: '/images/product/' }
+                    - { property: 'provider' }
+                    - { property: 'platform' }
+            form:
+                fields:
+                    - { property: 'name' }
+                    - { property: 'description' }
+                    - { property: 'price' }
+                    - { property: 'image' , type: 'file_upload' , type_options: { upload_dir: 'public/images/product/' }}
+                    - { property: 'provider' }
+                    - { property: 'platform' }
 ```
 
 ### Step 5: Start Symfony Server
@@ -72,11 +100,10 @@ symfony server:start
 - ***Platform***
   - Add only ***Name*** and save it.
 - ***Provider***
-   - Add all fields according to your choice and add multiple the ***Platform*** field.
+   - Add all fields according to your choice, you can add one or more ***Platforms***.
 - ***Bundle***
    - Add all fields according to your choice.
-   - For Image field you need to move your product image under ***public/images/product/*** folder then add only its ***file name with extention*** in text field.
-    - For example you need to pass only ***image_name.png*** here.
+   - For Image field you can upload image from your computer, the image file automatically upload into project directory ***public/images/product/*** folder and save the respective path in your database.
 
 
 ### Step 7 : Go To Home Page

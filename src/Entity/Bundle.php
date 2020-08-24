@@ -120,7 +120,31 @@ class Bundle
 
     public function getImage(): ?string
     {
-        return $this->image;
+
+      if( isset( $_GET['action'] ) ) {
+
+        if( $_GET['action'] == 'edit' ) {
+          return $this->image;
+        } else {
+          if (strpos($this->image, '\\') !== false) {
+            $image_arr = explode('\\', $this->image);
+            return end($image_arr);
+          } else {
+            return $this->image;
+          }
+        }
+
+      } else {
+
+        if (strpos($this->image, '\\') !== false) {
+          $image_arr = explode('\\', $this->image);
+          return end($image_arr);
+        } else {
+          return $this->image;
+        }
+
+      }
+
     }
 
     public function setImage(string $image): self
