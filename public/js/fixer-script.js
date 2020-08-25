@@ -29,7 +29,7 @@ function convertCurrency( to ) {
      'ZAR': 'R'
 };
 
-
+if(access_key !== '') {
 
   $( ".cur_price" ).each(function( index, value ) {
     var oldPrice =  $( this ).text();
@@ -41,26 +41,20 @@ function convertCurrency( to ) {
     var from = price_arr[2];
 
     $.ajax({
-        url: 'http://data.fixer.io/api/latest?access_key='+access_key,
-        dataType: 'jsonp',
-        success: function(json) {
+        url: '/getPrice?from='+from+'&to='+to+'&amount='+amount+'&access_key='+access_key,
+        dataType: 'json',
+        success: function(data, status) {
 
-            if(to == 'EUR') {
-
-              var updateamount = amount / json['rates'][from];
-              $( '#'+bundleid ).text("€ "+updateamount.toFixed(2)+" EUR");
-
-            } else {
-
-              var updateamount1 = amount / json['rates'][from];
-              var updateamount = updateamount1 * json['rates'][to];
-              $( '#'+bundleid ).text(currency_symbols[to]+" "+updateamount.toFixed(2)+" "+to);
-
-            }
+          $( '#'+bundleid ).text(currency_symbols[to]+" "+data['updateAmount'].toFixed(2)+" "+to);
 
         }
     });
 
   });
+
+} else {
+  //Display error for the API Key is not entered
+    alert("Please Update Fixer.io API Key in .ENV file for the price conversion");
+}
 
 }
