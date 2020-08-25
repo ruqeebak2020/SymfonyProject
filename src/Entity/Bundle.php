@@ -121,28 +121,15 @@ class Bundle
     public function getImage(): ?string
     {
 
-      if( isset( $_GET['action'] ) ) {
-
-        if( $_GET['action'] == 'edit' ) {
-          return $this->image;
-        } else {
-          if (strpos($this->image, '\\') !== false) {
-            $image_arr = explode('\\', $this->image);
-            return end($image_arr);
-          } else {
-            return $this->image;
-          }
-        }
-
+      if( isset( $_GET['action'] ) && $_GET['action'] == 'edit' ) {
+        return $this->image;
       } else {
-
         if (strpos($this->image, '\\') !== false) {
           $image_arr = explode('\\', $this->image);
           return end($image_arr);
         } else {
           return $this->image;
         }
-
       }
 
     }

@@ -39,7 +39,7 @@ class BundleController extends AbstractController
      * @Route("/bundle/{id}", name="bundle")
      */
 
-     public function single_bundle( $id )
+     public function bundle( $id )
      {
 
        $product = $this->getDoctrine()
@@ -47,7 +47,7 @@ class BundleController extends AbstractController
         ->find($id);
 
         if(!$product) {
-        //  throw $this->createNotFoundException('The Bundle does not exist!!!');
+
           return $this->render('inc/error.html.twig', [
               'page_title' => '404 Page Not Found',
               'message' => 'The Bundle does not exist !!!'

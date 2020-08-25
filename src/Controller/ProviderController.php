@@ -38,7 +38,7 @@ class ProviderController extends AbstractController
      * @Route("/provider/{id}", name="provider")
      */
 
-     public function single_provider( $id )
+     public function provider( $id )
      {
 
        $provider = $this->getDoctrine()

@@ -16,10 +16,10 @@ class HomeController extends AbstractController
     {
 
     $repository = $this->getDoctrine()->getRepository(Provider::class);
-    $providers = $repository->findAll();
+    $providers = $repository->findBy(array(),array('id'=>'ASC'),4,0);
 
     $repository = $this->getDoctrine()->getRepository(Bundle::class);
-    $products = $repository->findAll();
+    $products = $repository->findBy(array(),array('id'=>'ASC'),4,0);
 
     return $this->render('home/index.html.twig', [
         'page_title' => 'Home',
