@@ -10,17 +10,17 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use GuzzleHttp\Client;
 
-class GetPriceController
+class ConvertCurrencyController
 {
     public function __construct(EntityManagerInterface $em) {
         $this->em = $em;
     }
 
     /**
-     * @Route("/getPrice", name="getPriceAjax")
+     * @Route("/convertCurrency", name="convertCurrencyAjax")
      */
 
-   public function getPrice(){
+   public function convertCurrency(){
 
         // set API Endpoint and API key
         $get_request = Request::createFromGlobals();

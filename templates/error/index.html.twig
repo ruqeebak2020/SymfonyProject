@@ -1,0 +1,22 @@
+{# templates/bundle/error.html.twig #}
+{% extends 'layout.html.twig' %}
+
+{% block title %}
+{{ project_name }} | {{ error_code }}
+{% endblock %}
+
+{% block content %}
+
+<div class="container page404">
+
+    <h1>Opps! something went wrong...</h1>
+
+    <h3>Error Code : {{ error_code }}</h3>
+    <p>
+        The requested page couldn't be located. <br/>
+        Checkout for any URL misspelling or <a href="{{ url('home') }}">Return to the Home Page</a>.
+    </p>
+
+</div>
+
+{% endblock %}

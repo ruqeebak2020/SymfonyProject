@@ -39,9 +39,9 @@ if(access_key !== '') {
     var symbol = price_arr[0];
     var amount = price_arr[1];
     var from = price_arr[2];
-
+    $( '#'+bundleid ).text('Updating please wait...');
     $.ajax({
-        url: '/getPrice?from='+from+'&to='+to+'&amount='+amount+'&access_key='+access_key,
+        url: '/convertCurrency?from='+from+'&to='+to+'&amount='+amount+'&access_key='+access_key,
         dataType: 'json',
         success: function(data, status) {
 
