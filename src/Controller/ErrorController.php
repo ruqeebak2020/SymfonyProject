@@ -13,14 +13,14 @@ class ErrorController extends AbstractController
     public function index()
     {
         return $this->render('error/index.html.twig', [
-            'controller_name' => 'ErrorController',
+            'error_code' => 500
         ]);
     }
 
     public function show(\Throwable $exception)
     {
        return $this->render('error/index.html.twig', [
-           'error_code' => method_exists( $exception, 'getStatusCode' ) ? $exception->getStatusCode(): 0
+           'error_code' => method_exists( $exception, 'getStatusCode' ) ? $exception->getStatusCode(): 500
        ]);
     }
 

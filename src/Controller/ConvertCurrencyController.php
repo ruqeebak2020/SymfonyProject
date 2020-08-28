@@ -23,11 +23,11 @@ class ConvertCurrencyController
    public function convertCurrency(){
 
         // set API Endpoint and API key
-        $get_request = Request::createFromGlobals();
-        $access_key = $get_request->query->get('access_key');
+        $request = Request::createFromGlobals();
+        $access_key = $request->query->get('access_key');
 
         //Create Guzzle Object
-        $client = new Client();
+         $client = new Client();
 
         $response = $client->request('GET', 'http://data.fixer.io/api/latest?access_key='.$access_key.'');
         $body = $response->getBody();
@@ -39,21 +39,15 @@ class ConvertCurrencyController
         if( $exchangeRates['success'] == 1){
             //Process id Get Sucess is equal to 1
 
-            $from =  $get_request->query->get('from');
-            $to =  $get_request->query->get('to');
-            $amount =  $get_request->query->get('amount');
-
-            $response_array = array();
+            $from =  $request->query->get('from');
+            $to =  $request->query->get('to');
+            $amount =  $request->query->get('amount');
 
             if($to == 'EUR') {
-
               $updateamount = $amount / $exchangeRates['rates'][$from];
-
             } else {
-
               $updateamount1 = $amount / $exchangeRates['rates'][$from];
               $updateamount = $updateamount1 * $exchangeRates['rates'][$to];
-
             }
 
             return new JsonResponse(array(
