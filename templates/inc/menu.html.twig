@@ -28,12 +28,27 @@
             </ul>
           </div> -->
           <select name="change_currency" id="change_currency"  class="form-control">
-            <option value="USD">USD</option>
-            <option value="EUR">EUR</option>
-            <option value="ZAR">ZAR</option>
+            <option value="USD" {{ (currency_code == 'USD') ? 'selected' : '' }} >USD</option>
+            <option value="EUR" {{ (currency_code == 'EUR') ? 'selected' : '' }} >EUR</option>
+            <option value="ZAR" {{ (currency_code == 'ZAR') ? 'selected' : '' }} >ZAR</option>
           </select>
         </li>
       </ul>
     </div>
   </div>
 </nav>
+
+{% if errors != '' %}
+<br/><br/><br/>
+<div class="container">
+<div class="alert alert-danger">
+<strong>Errors!</strong> {{ errors }}
+</div>
+</div>
+
+{% endif %}
+
+<div id="loading_section" class="loading_section"> 
+<div class="loader"></div>
+<p>Updating price please wait...</p>
+</div>

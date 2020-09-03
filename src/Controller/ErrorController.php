@@ -20,7 +20,8 @@ class ErrorController extends AbstractController
     public function show(\Throwable $exception)
     {
        return $this->render('error/index.html.twig', [
-           'error_code' => method_exists( $exception, 'getStatusCode' ) ? $exception->getStatusCode(): 500
+           'error_code' => method_exists( $exception, 'getStatusCode' ) ? $exception->getStatusCode(): 500,
+           'exception' => $exception->getMessage(),
        ]);
     }
 

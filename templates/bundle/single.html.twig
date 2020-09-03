@@ -39,7 +39,7 @@
 
         <p class="card-text"><b>Platform: </b>{{ product.getPlatform().name }}</p>
 
-        <h5>Price: <span id="cur_price_{{ product.id }}" class="cur_price" >$ {{ product.price }} USD</span></h5>
+        <h5>Price: <span id="cur_price_{{ product.id }}" class="cur_price" >{{ symbol }} {{ product.price }} {{ currency_code }}</span></h5>
 
         <button class="btn btn-primary btn-cart">Add To Cart </button>
 

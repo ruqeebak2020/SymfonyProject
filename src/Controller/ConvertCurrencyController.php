@@ -5,65 +5,47 @@ namespace App\Controller;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Repository\BundleRepository;
 use App\Entity\Bundle;
+use App\Service\CurrencyService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Cookie;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use GuzzleHttp\Client;
 
 class ConvertCurrencyController
 {
-    public function __construct(EntityManagerInterface $em) {
-        $this->em = $em;
-    }
+      public function __construct(EntityManagerInterface $em) {
+          $this->em = $em;
+      }
 
-    /**
-     * @Route("/convertCurrency", name="convertCurrencyAjax")
-     */
+      /**
+       * @Route("/updateCurrency", name="updateCurrencyAjax")
+       */
 
-   public function convertCurrency(){
+       public function updateCurrency( Request $request, CurrencyService $convertCurrency ) : Response {
 
-        // set API Endpoint and API key
-        $request = Request::createFromGlobals();
-        $access_key = $request->query->get('access_key');
+         $to = $request->query->get('to');
 
-        //Create Guzzle Object
-         $client = new Client();
+         $response = $convertCurrency->initCookie($request , $to);
 
-        $response = $client->request('GET', 'http://data.fixer.io/api/latest?access_key='.$access_key.'');
-        $body = $response->getBody();
-        $json = (string) $body;
+         return $response;
 
-        // Decode JSON response:
-        $exchangeRates = json_decode($json, true);
+       }
 
-        if( $exchangeRates['success'] == 1){
-            //Process id Get Sucess is equal to 1
+      /**
+       * @Route("/getCurrencyRates", name="getCurrencyRatesAjax")
+       */
 
-            $from =  $request->query->get('from');
-            $to =  $request->query->get('to');
-            $amount =  $request->query->get('amount');
+       public function getCurrencyRates(CurrencyService $convertCurrency) {
 
-            if($to == 'EUR') {
-              $updateamount = $amount / $exchangeRates['rates'][$from];
-            } else {
-              $updateamount1 = $amount / $exchangeRates['rates'][$from];
-              $updateamount = $updateamount1 * $exchangeRates['rates'][$to];
-            }
+         $rates = $convertCurrency->getRates();
 
-            return new JsonResponse(array(
-                'status' => 'OK',
-                'message' =>'success',
-                'updateAmount' => $updateamount),
-            200);
+         return new JsonResponse(array(
+             'status' => 'OK',
+             'rates' => $rates['data']),
+         200);
 
-        } else {
-            //Return Error array of the API
-            return new JsonResponse(array(
-                'status' => 'OK',
-                'message' =>$exchangeRates),
-            200);
-
-        }
-    }
+       }
 
 }
