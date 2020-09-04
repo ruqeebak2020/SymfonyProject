@@ -17,7 +17,6 @@ $( document ).ready(function() {
         url: '/getCurrencyRates',
         dataType: 'json',
         success: function(data) {
-          // console.log(data);
 
           if(  data['rates']['success'] == false ) {
 
