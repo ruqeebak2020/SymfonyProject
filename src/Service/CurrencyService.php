@@ -35,6 +35,13 @@ class CurrencyService
 
       public function getRates() {
 
+        if( 0 >= strlen( trim( $this->getAPIkey() ) ) || 0 >= strlen( trim( $this->getDomain() ) ) || 0 >= strlen( trim( $this->getDefaultCurrency() ) ) ) {
+             return [
+              'status' => 'FAIL',
+              'data'   => []
+                ];
+        }
+
          //Create Guzzle Object
          $client = new Client();
          $endpoint = 'latest';
@@ -59,6 +66,8 @@ class CurrencyService
       }
 
       public function getCurrencyCode( $response ) {
+
+        $currency_code = $this->getDefaultCurrency();
 
         $cookies = $response->headers->getCookies();
         foreach ($cookies as $cookie) {

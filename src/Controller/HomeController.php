@@ -42,7 +42,7 @@ class HomeController extends AbstractController
 
               $currency_code = $defaultCurrency;
               $symbol = $currencyService->getCurrencySymbol( $currency_code );
-              $error_msgs .= $rates['data']['error']['info'];
+              $error_msgs .= ( isset( $rates['data']['error']['info'] ) ) ? $rates['data']['error']['info'] : '';
 
             } else {
 
