@@ -46,14 +46,15 @@
   </div>
 </nav>
 
-{% if errors != '' %}
-<br/><br/><br/>
-<div class="container">
-<div class="alert alert-danger">
-<strong>Errors!</strong> {{ errors }}
-</div>
-</div>
-
+{% if errors is defined %}
+    {% if errors != '' %}
+        <br/><br/><br/>
+        <div class="container">
+        <div class="alert alert-danger">
+        <strong>Errors!</strong> {{ errors }}
+        </div>
+        </div>
+    {% endif %}
 {% endif %}
 
 <div id="loading_section" class="loading_section">
