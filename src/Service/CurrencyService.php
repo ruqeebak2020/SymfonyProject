@@ -36,10 +36,19 @@ class CurrencyService
       public function getRates() {
 
         if( 0 >= strlen( trim( $this->getAPIkey() ) ) || 0 >= strlen( trim( $this->getDomain() ) ) || 0 >= strlen( trim( $this->getDefaultCurrency() ) ) ) {
+
+              $error_info = array(
+                "code" => 101,
+                "type" => "missing_access_key",
+                "info" => "You have not supplied an API Access Key. Please provide Fixer API key in project .ENV file at line number 37."
+              );
+              $data = array("success"=> false, "error"=>$error_info );
+
              return [
               'status' => 'FAIL',
-              'data'   => []
-                ];
+              'data'   => $data
+            ];
+
         }
 
          //Create Guzzle Object
